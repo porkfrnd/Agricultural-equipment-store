@@ -1,0 +1,58 @@
+body{
+    font-family: sans-serif;
+    padding: 25px;
+    background: #fff;
+}
+
+#displayName{ 
+    font-size: 1.3rem; 
+    margin-bottom: 20px; 
+    padding-bottom: 10px; 
+    border-bottom: 2px solid #eee; 
+}
+
+.form-container{
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 15px;
+    align-items: center;
+    max-width: 450px;
+}
+
+label{
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #444;
+    text-align: right;
+}
+
+input, select{
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+input:focus{
+    border-color: #27ae60;
+    outline: none;
+}
+
+.confirm-btn{
+    padding: 12px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.confirm-btn:hover{
+    background: #156135;
+}
+
+.confirm-btn:disabled{
+    background: #95a5a6;
+    cursor: not-allowed;
+}

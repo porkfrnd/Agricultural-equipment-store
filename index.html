@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My store</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Welcome To My Store</h1>
+            <p>Here you can find all sorts of agricultural tools for the best prices</p>
+        </div>
+        <div class="shop-container">
+            <div class="product">
+                <div class="image-of-prod">
+                    <img src="resources/shovel.webp">
+                    <button class="buy-button" onclick="buyItem('Iron shovel')">Buy Now</button>
+                </div>
+                <h3 class="prod-name">Iron Shovel</h3>
+                <p class="prod-price">Rs. 2000</p>
+            </div>
+            <div class="product">
+                <div class="image-of-prod">
+                    <img src="resources/tractor.avif">
+                    <button class="buy-button" onclick="buyItem('Delux Tractor')">Buy Now</button>
+                </div>
+                <h3 class="prod-name">Delux Tractor</h3>
+                <p class="prod-price">Rs. 1.8 lakhs</p>
+            </div>
+            <div class="product">
+                <div class="image-of-prod">
+                    <img src="resources/bucket.jpg">
+                   <button class="buy-button" onclick="buyItem('Iron Bucket')">Buy Now</button>
+                </div>
+                <h3 class="prod-name">Iron Bucket</h3>
+                <p class="prod-price">Rs. 1700</p>
+            </div>
+            <div class="product">
+                <div class="image-of-prod">
+                    <img src="resources/sprinkler.avif">
+                    <button class="buy-button" onclick="buyItem('Water sprinkler')">Buy Now</button>
+                </div>
+                <h3 class="prod-name">Water sprinkler</h3>
+                <p class="prod-price">Rs. 4500</p>
+            </div>
+            <div class="product">
+                <div class="image-of-prod">
+                    <img src="resources/sensor.jpg">
+                    <button class="buy-button" onclick="buyItem('Soil moisture sensor')">Buy Now</button>
+                </div>
+                <h3 class="prod-name">Soil moisture sensor</h3>
+                <p class="prod-price">Rs. 9800</p>
+            </div>
+            <div class="product">
+                <div class="image-of-prod">
+                    <img src="resources/seed.webp">
+                    <button class="buy-button" onclick="buyItem('Pumpkin seed')">Buy Now</button>
+                </div>
+                <h3 class="prod-name">Pumpkin seed(320grams)</h3>
+                <p class="prod-price">Rs. 1600</p>
+            </div>
+        </div>
+        <div id="productModal" class="modal-overlay">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">
+                    &times;
+                </span>
+                <iframe src="mini.html" id="modalFrame" title="Product Details"></iframe>
+            </div>
+        </div>
+    </body>
+</html>

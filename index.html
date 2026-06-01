@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriGear Pro — Premium Agricultural Solutions</title>
+    <title>AgriGear Pro X | Premium Agricultural Marketplace</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -15,47 +15,98 @@
         <div class="nav-container">
             <div class="brand">
                 <i data-lucide="sprout" class="brand-icon"></i>
-                <span>AgriGear<span class="accent">Pro</span></span>
+                <span>AgriGear<span class="accent">Pro X</span></span>
             </div>
-            <button class="cart-toggle-btn" onclick="toggleCart(true)">
-                <i data-lucide="shopping-cart"></i>
-                <span id="cartBadge" class="cart-badge">0</span>
-            </button>
+            <div class="nav-actions">
+                <button class="theme-toggle-btn" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle Theme Mode">
+                    <i data-lucide="sun" class="theme-icon-light"></i>
+                    <i data-lucide="moon" class="theme-icon-dark"></i>
+                </button>
+                <button class="cart-toggle-btn" onclick="toggleCart(true)">
+                    <i data-lucide="shopping-cart"></i>
+                    <span id="cartBadge" class="cart-badge">0</span>
+                </button>
+            </div>
         </div>
     </nav>
 
     <header class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <span class="hero-tag">Industrial & Small-Scale Farming Tools</span>
-            <h1>Cultivate Excellence with Premium Equipment</h1>
-            <p>Discover high-performance agricultural machinery, smart-farming sensors, and resilient raw assets engineered for optimal yield and peak farm efficiency.</p>
-            <a href="#shop" class="hero-btn">Browse Catalog <i data-lucide="arrow-right"></i></a>
+            <span class="hero-tag">Next-Gen Agricultural Solutions</span>
+            <h1>Cultivate Yield with Enterprise Machinery</h1>
+            <p>Deploy high-fidelity industrial hardware, real-time soil analytics sensors, and hardened farming tools engineered for elite efficiency.</p>
+            <a href="#shopContainer" class="hero-btn">Browse Catalog <i data-lucide="arrow-right"></i></a>
         </div>
     </header>
 
-    <main id="shop" class="store-section">
+    <main id="shopContainer" class="store-section">
         <div class="section-title">
-            <h2>Featured Products</h2>
-            <p>Select from our heavily vetted inventory with local warranties and doorstep distribution.</p>
+            <h2>Product Catalog</h2>
+            <p>Filter through high-spec farming assets deployed with instant local distribution networks.</p>
         </div>
+
+        <div class="controls-panel">
+            <div class="search-box">
+                <i data-lucide="search" class="control-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search product inventory..." oninput="filterAndRenderProducts()">
+            </div>
+            <div class="select-box">
+                <i data-lucide="sliders" class="control-icon"></i>
+                <select id="filterInput" onchange="filterAndRenderProducts()">
+                    <option value="all">All Categories</option>
+                    <option value="tool">Essential Tools</option>
+                    <option value="machine">Heavy Machinery</option>
+                    <option value="utility">General Utilities</option>
+                    <option value="irrigation">Irrigation Systems</option>
+                    <option value="smart">Smart Farming Tech</option>
+                    <option value="seeds">Organic Seeds</option>
+                </select>
+            </div>
+        </div>
+
         <div id="productGrid" class="product-grid">
             </div>
     </main>
+
+    <section class="trust-section">
+        <div class="trust-grid">
+            <div class="trust-card">
+                <div class="trust-icon"><i data-lucide="truck"></i></div>
+                <h4>Express Logistics Pipeline</h4>
+                <p>Direct routing structures deployed across the Kathmandu Valley and provincial sectors.</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon"><i data-lucide="shield-check"></i></div>
+                <h4>Hardware Warranty Shield</h4>
+                <p>All mechanical assemblies undergo structural optimization metrics before deployment.</p>
+            </div>
+            <div class="trust-card">
+                <div class="trust-icon"><i data-lucide="cpu"></i></div>
+                <h4>Automated Inventory Sync</h4>
+                <p>Real-time client tracking and state serialization running locally on your node.</p>
+            </div>
+        </div>
+    </section>
 
     <div id="cartDrawer" class="cart-drawer">
         <div class="cart-drawer-overlay" onclick="toggleCart(false)"></div>
         <div class="cart-drawer-content">
             <div class="cart-header">
-                <h3>Your Cart</h3>
+                <div class="cart-header-title">
+                    <i data-lucide="shopping-bag"></i>
+                    <h3>Your Shopping Cart</h3>
+                </div>
                 <button class="close-drawer" onclick="toggleCart(false)"><i data-lucide="x"></i></button>
             </div>
+            
             <div id="cartItemsList" class="cart-items-container">
                 </div>
+
             <div class="cart-footer">
                 <div class="cart-summary">
-                    <span>Subtotal:</span>
-                    <span id="cartSubtotal">Rs. 0</span>
+                    <span>Subtotal Due:</span>
+                    <span id="cartSubtotal" class="subtotal-value">Rs. 0</span>
                 </div>
                 <button id="checkoutBtn" class="checkout-btn" onclick="openCheckout()" disabled>
                     Proceed to Checkout <i data-lucide="credit-card"></i>
@@ -70,17 +121,17 @@
             
             <div class="modal-body" id="modalFormBody">
                 <div class="modal-form-header">
-                    <h2>Complete Your Order</h2>
-                    <p>Provide your delivery metrics below to dispatch our routing teams.</p>
+                    <h2>Secure Order Shipping</h2>
+                    <p>Provide verified logistical criteria below to finalize shipment execution pipelines.</p>
                 </div>
 
                 <form id="orderForm" onsubmit="handleOrderSubmit(event)">
                     <div class="form-row">
                         <div class="input-group">
-                            <label for="userName">Full Name</label>
+                            <label for="userName">Customer Full Name</label>
                             <div class="input-wrapper">
                                 <i data-lucide="user"></i>
-                                <input type="text" id="userName" placeholder="Binayak Adhikari" required>
+                                <input type="text" id="userName" placeholder="John Doe" required>
                             </div>
                         </div>
                     </div>
@@ -94,17 +145,17 @@
                             </div>
                         </div>
                         <div class="input-group">
-                            <label for="userPhone">Phone Number</label>
+                            <label for="userPhone">Contact Number</label>
                             <div class="input-wrapper">
                                 <i data-lucide="phone"></i>
-                                <input type="tel" id="userPhone" placeholder="98XXXXXXXX" pattern="[9][6-8][0-9]{8}" title="Please enter a valid 10-digit Nepali phone number starting with 9" required>
+                                <input type="tel" id="userPhone" placeholder="98XXXXXXXX" pattern="[9][6-8][0-9]{8}" title="Provide a valid 10-digit mobile identifier starting with 9" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-grid">
                         <div class="input-group">
-                            <label for="province">Province</label>
+                            <label for="province">Target Province</label>
                             <div class="input-wrapper">
                                 <i data-lucide="map"></i>
                                 <select id="province">
@@ -119,20 +170,20 @@
                             </div>
                         </div>
                         <div class="input-group">
-                            <label for="address">Nearest Landmark / Street</label>
+                            <label for="address">Nearest Landmark / Shipping Address</label>
                             <div class="input-wrapper">
                                 <i data-lucide="map-pin"></i>
-                                <input type="text" id="address" placeholder="e.g., Near Bojhepokhari" required>
+                                <input type="text" id="address" placeholder="e.g. Near Bojhepokhari" required>
                             </div>
                         </div>
                     </div>
 
                     <div class="order-preview-box">
-                        <h4>Order Summary</h4>
+                        <h4>Order Manifest Summary</h4>
                         <div id="modalOrderSummaryItems"></div>
                         <div class="summary-divider"></div>
                         <div class="summary-total-row">
-                            <span>Total Due:</span>
+                            <span>Total Amount:</span>
                             <span id="modalSummaryTotal">Rs. 0</span>
                         </div>
                     </div>
@@ -146,18 +197,18 @@
 
             <div class="modal-success" id="modalSuccessBody" style="display: none;">
                 <div class="success-ring">
-                    <i data-lucide="check"></i>
+                    <i data-lucide="shield-check"></i>
                 </div>
-                <h2>Order Secured!</h2>
-                <p>Your agricultural logistics tracking sheet has been recorded. Our regional desk agent will call you within 30 minutes to finalize execution.</p>
-                <button class="success-close-btn" onclick="closeCheckout()">Return to Store</button>
+                <h2>Order Successfully Placed!</h2>
+                <p>Your hardware procurement documentation has been committed to the server. Our distribution network operators will contact your channel short-term.</p>
+                <button class="success-close-btn" onclick="closeCheckout()">Return to Store Node</button>
             </div>
         </div>
     </div>
 
     <footer class="footer">
-        <p>© 2026 AgriGear Pro. All Rights Reserved.</p>
-        <p class="author">Architected with precision by <strong>Binayak Adhikari</strong></p>
+        <p>© 2026 AgriGear Pro X. Systems Active via Mainframe.</p>
+        <p class="author">Architected with Precision by <strong>Binayak Adhikari</strong></p>
     </footer>
 
     <script src="script.js"></script>

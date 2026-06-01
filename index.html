@@ -1,73 +1,165 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>My store</title>
-        <link rel="stylesheet" href="style.css">
-        <script src="script.js"></script>
-    </head>
-    <body>
-        <div class="header">
-            <h1>Welcome To My Store</h1>
-            <p>Here you can find all sorts of agricultural tools for the best prices</p>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriGear Pro — Premium Agricultural Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <i data-lucide="sprout" class="brand-icon"></i>
+                <span>AgriGear<span class="accent">Pro</span></span>
+            </div>
+            <button class="cart-toggle-btn" onclick="toggleCart(true)">
+                <i data-lucide="shopping-cart"></i>
+                <span id="cartBadge" class="cart-badge">0</span>
+            </button>
         </div>
-        <div class="shop-container">
-            <div class="product">
-                <div class="image-of-prod">
-                    <img src="resources/shovel.webp">
-                    <button class="buy-button" onclick="buyItem('Iron shovel')">Buy Now</button>
-                </div>
-                <h3 class="prod-name">Iron Shovel</h3>
-                <p class="prod-price">Rs. 2000</p>
-            </div>
-            <div class="product">
-                <div class="image-of-prod">
-                    <img src="resources/tractor.avif">
-                    <button class="buy-button" onclick="buyItem('Delux Tractor')">Buy Now</button>
-                </div>
-                <h3 class="prod-name">Delux Tractor</h3>
-                <p class="prod-price">Rs. 1.8 lakhs</p>
-            </div>
-            <div class="product">
-                <div class="image-of-prod">
-                    <img src="resources/bucket.jpg">
-                   <button class="buy-button" onclick="buyItem('Iron Bucket')">Buy Now</button>
-                </div>
-                <h3 class="prod-name">Iron Bucket</h3>
-                <p class="prod-price">Rs. 1700</p>
-            </div>
-            <div class="product">
-                <div class="image-of-prod">
-                    <img src="resources/sprinkler.avif">
-                    <button class="buy-button" onclick="buyItem('Water sprinkler')">Buy Now</button>
-                </div>
-                <h3 class="prod-name">Water sprinkler</h3>
-                <p class="prod-price">Rs. 4500</p>
-            </div>
-            <div class="product">
-                <div class="image-of-prod">
-                    <img src="resources/sensor.jpg">
-                    <button class="buy-button" onclick="buyItem('Soil moisture sensor')">Buy Now</button>
-                </div>
-                <h3 class="prod-name">Soil moisture sensor</h3>
-                <p class="prod-price">Rs. 9800</p>
-            </div>
-            <div class="product">
-                <div class="image-of-prod">
-                    <img src="resources/seed.webp">
-                    <button class="buy-button" onclick="buyItem('Pumpkin seed')">Buy Now</button>
-                </div>
-                <h3 class="prod-name">Pumpkin seed(320grams)</h3>
-                <p class="prod-price">Rs. 1600</p>
-            </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-tag">Industrial & Small-Scale Farming Tools</span>
+            <h1>Cultivate Excellence with Premium Equipment</h1>
+            <p>Discover high-performance agricultural machinery, smart-farming sensors, and resilient raw assets engineered for optimal yield and peak farm efficiency.</p>
+            <a href="#shop" class="hero-btn">Browse Catalog <i data-lucide="arrow-right"></i></a>
         </div>
-        <div id="productModal" class="modal-overlay">
-            <div class="modal-content">
-                <span class="close-btn" onclick="closeModal()">
-                    &times;
-                </span>
-                <iframe src="mini.html" id="modalFrame" title="Product Details"></iframe>
+    </header>
+
+    <main id="shop" class="store-section">
+        <div class="section-title">
+            <h2>Featured Products</h2>
+            <p>Select from our heavily vetted inventory with local warranties and doorstep distribution.</p>
+        </div>
+        <div id="productGrid" class="product-grid">
+            </div>
+    </main>
+
+    <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-drawer-overlay" onclick="toggleCart(false)"></div>
+        <div class="cart-drawer-content">
+            <div class="cart-header">
+                <h3>Your Cart</h3>
+                <button class="close-drawer" onclick="toggleCart(false)"><i data-lucide="x"></i></button>
+            </div>
+            <div id="cartItemsList" class="cart-items-container">
+                </div>
+            <div class="cart-footer">
+                <div class="cart-summary">
+                    <span>Subtotal:</span>
+                    <span id="cartSubtotal">Rs. 0</span>
+                </div>
+                <button id="checkoutBtn" class="checkout-btn" onclick="openCheckout()" disabled>
+                    Proceed to Checkout <i data-lucide="credit-card"></i>
+                </button>
             </div>
         </div>
-		<h1 align="center">This site was built by Binayak Adhikari</h1>
-    </body>
+    </div>
+
+    <div id="checkoutModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCheckout()"><i data-lucide="x"></i></button>
+            
+            <div class="modal-body" id="modalFormBody">
+                <div class="modal-form-header">
+                    <h2>Complete Your Order</h2>
+                    <p>Provide your delivery metrics below to dispatch our routing teams.</p>
+                </div>
+
+                <form id="orderForm" onsubmit="handleOrderSubmit(event)">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="userName">Full Name</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="user"></i>
+                                <input type="text" id="userName" placeholder="Binayak Adhikari" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="userEmail">Email Address</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="mail"></i>
+                                <input type="email" id="userEmail" placeholder="name@domain.com" required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="userPhone">Phone Number</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="phone"></i>
+                                <input type="tel" id="userPhone" placeholder="98XXXXXXXX" pattern="[9][6-8][0-9]{8}" title="Please enter a valid 10-digit Nepali phone number starting with 9" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label for="province">Province</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="map"></i>
+                                <select id="province">
+                                    <option>Bagmati</option>
+                                    <option>Gandaki</option>
+                                    <option>Lumbini</option>
+                                    <option>Koshi</option>
+                                    <option>Madhesh</option>
+                                    <option>Karnali</option>
+                                    <option>Sudurpaschim</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="address">Nearest Landmark / Street</label>
+                            <div class="input-wrapper">
+                                <i data-lucide="map-pin"></i>
+                                <input type="text" id="address" placeholder="e.g., Near Bojhepokhari" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-preview-box">
+                        <h4>Order Summary</h4>
+                        <div id="modalOrderSummaryItems"></div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-total-row">
+                            <span>Total Due:</span>
+                            <span id="modalSummaryTotal">Rs. 0</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitOrderBtn" class="place-order-btn">
+                        <span>Confirm & Place Order</span>
+                        <i data-lucide="check-circle"></i>
+                    </button>
+                </form>
+            </div>
+
+            <div class="modal-success" id="modalSuccessBody" style="display: none;">
+                <div class="success-ring">
+                    <i data-lucide="check"></i>
+                </div>
+                <h2>Order Secured!</h2>
+                <p>Your agricultural logistics tracking sheet has been recorded. Our regional desk agent will call you within 30 minutes to finalize execution.</p>
+                <button class="success-close-btn" onclick="closeCheckout()">Return to Store</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 AgriGear Pro. All Rights Reserved.</p>
+        <p class="author">Architected with precision by <strong>Binayak Adhikari</strong></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>
